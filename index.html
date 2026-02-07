@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Favorite Person ❤️</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #fb7185; --bg: #020617; }
+        body {
+            background-color: var(--bg);
+            background-image: radial-gradient(circle at center, #1e1b4b 0%, #020617 100%);
+            color: white; font-family: 'Poppins', sans-serif;
+            min-height: 100vh; overflow: hidden; margin: 0;
+        }
+        .font-love { font-family: 'Dancing Script', cursive; }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+        }
+
+        .page {
+            display: none;
+            animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            height: 100vh; width: 100%;
+            flex-direction: column; align-items: center; justify-content: center;
+            padding: 20px; text-align: center;
+        }
+        .active-page { display: flex; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        .float { animation: floating 3s ease-in-out infinite; }
+        @keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+        .pulse-red { animation: pulse-red 2s infinite; }
+        @keyframes pulse-red { 
+            0% { box-shadow: 0 0 0 0 rgba(251, 113, 133, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(251, 113, 133, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(251, 113, 133, 0); }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="love-song" loop>
+        <source src="song.mp3.mp3" type="audio/mpeg">
+        </audio>
+
+    <section id="page-1" class="page active-page">
+        <div class="float mb-6 text-rose-500">
+            <svg class="w-32 h-32 mx-auto" fill="currentColor" viewBox="0 0 20 20"><path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"/></svg>
+        </div>
+        <h1 class="text-6xl font-love mb-6 text-rose-200">Hey Handsome...</h1>
+        <p class="text-slate-400 mb-10 italic">Turn up the volume & click below</p>
+        <button onclick="startExperience()" class="pulse-red bg-rose-500 hover:bg-rose-600 px-12 py-4 rounded-full font-bold text-xl transition-all transform hover:scale-110">
+            Open My Heart ❤️
+        </button>
+    </section>
+
+    <section id="page-2" class="page">
+        <div class="glass p-8 max-w-lg">
+            <h2 class="text-2xl font-love text-rose-300 mb-6 leading-relaxed" id="typewriter-text"></h2>
+            
+            <div class="flex justify-center gap-4 mb-8">
+                <div class="group relative w-32 h-40 rounded-lg overflow-hidden border-4 border-white rotate-[-5deg] hover:rotate-0 transition-all duration-500 shadow-2xl">
+                    <img src="diwali.JPEG" class="w-full h-full object-cover grayscale group-hover:grayscale-0">
+                </div>
+                <div class="group relative w-32 h-40 rounded-lg overflow-hidden border-4 border-white rotate-[5deg] hover:rotate-0 transition-all duration-500 shadow-2xl">
+                    <img src="bday.JPEG" class="w-full h-full object-cover grayscale group-hover:grayscale-0">
+                </div>
+            </div>
+
+            <button id="btn-2" onclick="nextPage(3)" class="hidden mx-auto text-rose-400 font-bold tracking-widest uppercase text-xs border-b-2 border-rose-500 pb-1 hover:text-white">
+                There's more for you...
+            </button>
+        </div>
+    </section>
+
+    <section id="page-3" class="page">
+        <div class="glass p-10 flex flex-col items-center">
+            <div class="mb-6 text-6xl float">💍</div>
+            <h2 class="text-4xl md:text-5xl font-love mb-4 text-rose-100">On this Propose Day</h2>
+            <p class="text-slate-300 mb-10 italic">" I just want to ask you thatttttttttttt......</p>
+            
+            <h3 class="text-3xl font-bold mb-12">Will you be my forever Valentine ?</h3>
+            
+            <div class="flex flex-col sm:flex-row gap-6 items-center">
+                <button onclick="celebrate()" class="bg-rose-500 px-16 py-4 rounded-full font-bold text-2xl shadow-lg hover:bg-rose-600 transition-all transform hover:scale-110">YES!</button>
+                <button id="no-btn" onmouseover="dodge()" class="bg-slate-800 text-slate-500 px-10 py-2 rounded-full font-semibold border border-slate-700">No</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="page-4" class="page">
+        <div class="float text-8xl mb-6">💖</div>
+        <h2 class="text-6xl font-love text-rose-400 mb-6">I Knew It!</h2>
+        <div class="glass p-8 max-w-sm border-dashed border-2 border-rose-500/50">
+            <p class="uppercase tracking-widest text-xs font-bold text-rose-300 mb-2">Lifetime Membership</p>
+            <p class="text-lg mb-6">You are now officially stuck with me forever. No refunds!</p>
+            <div class="bg-rose-500 text-white font-mono py-2 px-4 rounded-lg text-xl">
+                CODE: SHIPANK
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const song = document.getElementById('love-song');
+
+        function startExperience() {
+            // Unlocks and plays audio on click
+            song.play().catch(e => console.log("Playback error: ", e));
+            nextPage(2);
+            typeWriter("They say when you meet the right person, you just know. From the way you smile to the way you make me feel safe and how you try to include me in every part of your life. I've known since the start that you will be my favorite chapter in every story...");
+        }
+
+        function nextPage(pageNum) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+            document.getElementById(`page-${pageNum}`).classList.add('active-page');
+        }
+
+        function typeWriter(text) {
+            const element = document.getElementById('typewriter-text');
+            const btn = document.getElementById('btn-2');
+            let i = 0;
+            element.innerHTML = '';
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, 50);
+                } else {
+                    btn.classList.remove('hidden');
+                    btn.classList.add('inline-block');
+                }
+            }
+            type();
+        }
+
+        function celebrate() {
+            nextPage(4);
+            // Professional Confetti Cannon
+            var end = Date.now() + (15 * 1000);
+            var colors = ['#fb7185', '#ffffff', '#f43f5e'];
+
+            (function frame() {
+              confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 }, colors: colors });
+              confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 }, colors: colors });
+              if (Date.now() < end) { requestAnimationFrame(frame); }
+            }());
+        }
+
+        function dodge() {
+            const btn = document.getElementById('no-btn');
+            const x = Math.random() * (window.innerWidth - 150);
+            const y = Math.random() * (window.innerHeight - 50);
+            btn.style.position = 'fixed';
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+            btn.innerHTML = "That's not the option! 😉";
+        }
+    </script>
+</body>
+</html>
